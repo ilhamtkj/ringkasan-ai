@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.sql.Connection;
 import java.sql.Statement;
+import java.util.List;
 import java.util.Optional;
 
 public class SummaryRepositoryTest {
@@ -40,7 +41,39 @@ public class SummaryRepositoryTest {
         Assertions.assertEquals(saved.getOriginalText(), found.get().getOriginalText());
         Assertions.assertEquals(saved.getSummaryText(), found.get().getSummaryText());
         Assertions.assertEquals(saved.getMethod(), found.get().getMethod());
-        // Assertions.assertNotNull(saved.getCreatedAt());
+        Assertions.assertNotNull(saved.getCreatedAt());
         Assertions.assertNotNull(found.get().getCreatedAt());
+    }
+
+    @Test
+    void findAll() {
+        // dummy data
+        var summary1 = new Summary(null, "title 1", "original text", "summary text", "method", null);
+        var summary2 = new Summary(null, "title 2", "original text", "summary text", "method", null);
+        var s1 = repository.save(summary1);
+        var s2 = repository.save(summary2);
+
+        var result = repository.findAll();
+        List<Summary> resultList = repository.findAll();
+
+        Assertions.assertFalse(result.isEmpty());
+        Assertions.assertFalse(resultList.isEmpty());
+        Assertions.assertEquals(2, result.size());
+
+        result.forEach(s -> System.out.println(s.getId() + " " + s.getTitle() + " " + s.getOriginalText() + " " + s.getSummaryText() + " " + s.getMethod() + " " + s.getCreatedAt()));
+
+        Assertions.assertEquals(s1.getId(), result.get(0).getId());
+        Assertions.assertEquals(s2.getId(), result.get(1).getId());
+        Assertions.assertEquals(s1.getTitle(), result.get(0).getTitle());
+        Assertions.assertEquals(s2.getTitle(), result.get(1).getTitle());
+    }
+
+    @Test
+    void findByIdTest() {
+        Summary summary = new Summary(null, "title", "original teks", "summary teks", "Test", null);
+        Summary saved = repository.save(summary);
+        Optional<Summary> found = repository.findById(summary.getId());
+
+        found.ifPresentOrElse(s -> System.out.println(s.getId() + " " + s.getTitle() + " " + s.getOriginalText() + " " + s.getSummaryText() + " " + s.getMethod() + " " + s.getCreatedAt()), () -> System.out.println("Data tidak ditemukan!"));
     }
 }

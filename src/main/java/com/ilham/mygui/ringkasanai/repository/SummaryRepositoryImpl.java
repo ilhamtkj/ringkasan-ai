@@ -25,8 +25,8 @@ public class SummaryRepositoryImpl implements SummaryRepository {
      * save mengembalikan objek summary dengan value id
      * yang sudah diperbarui.
      *
-     * @param summary
-     * @return
+     * @param summary summary dengan id null dan createdAt null saat dikirim
+     * @return mengembalikan summary dengan id dan createdAt sudah terisi
      */
     @Override
     public Summary save(Summary summary) {
@@ -38,10 +38,25 @@ public class SummaryRepositoryImpl implements SummaryRepository {
             stmt.setString(3, summary.getSummaryText());
             stmt.setString(4, summary.getMethod());
             stmt.executeUpdate();
+
             // update id
             ResultSet keys = stmt.getGeneratedKeys();
+            // mengatur id dan createdAt
             if (keys.next()) {
-                summary.setId(keys.getInt(1));
+                int generatedId = keys.getInt(1);
+                summary.setId(generatedId);
+
+                // mengambil created_at
+                String sql2 = "SELECT created_at FROM summaries WHERE id = ?";
+                try (PreparedStatement stmt2 = connection.prepareStatement(sql2)) {
+                    stmt2.setInt(1, generatedId);
+                    ResultSet rs = stmt2.executeQuery();
+                    if (rs.next()) {
+                        summary.setCreatedAt(rs.getTimestamp("created_at").toLocalDateTime());
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -79,7 +94,7 @@ public class SummaryRepositoryImpl implements SummaryRepository {
      * mencari data berdasarkan id.
      *
      *
-     * @param id
+     * @param id int atau Integer
      * @return Optional
      */
     @Override
@@ -103,7 +118,7 @@ public class SummaryRepositoryImpl implements SummaryRepository {
      *
      * @param rs result set
      * @return Summary
-     * @throws SQLException
+     * @throws SQLException error jika result set error
      */
     private Summary mapResultSetToSummary(ResultSet rs) throws SQLException {
         return new Summary(
