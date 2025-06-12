@@ -1,4 +1,4 @@
-package com.ilham.mygui.ringkasanai.service.input;
+package com.ilham.mygui.ringkasanai.service;
 
 import javafx.stage.FileChooser;
 import javafx.stage.Window;

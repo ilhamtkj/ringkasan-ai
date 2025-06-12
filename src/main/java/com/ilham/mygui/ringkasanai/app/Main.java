@@ -1,6 +1,5 @@
 package com.ilham.mygui.ringkasanai.app;
 
-import com.ilham.mygui.ringkasanai.util.Database;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -19,7 +18,6 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        Database.getConnection();
         launch();
     }
 }

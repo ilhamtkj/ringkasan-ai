@@ -91,8 +91,32 @@ public class SummaryRepositoryImpl implements SummaryRepository {
     }
 
     /**
-     * mencari data berdasarkan id.
+     * mengambil data tanpa teks asli dan ringkasan.
+     * mengembalikan List yang berisi Summary
      *
+     * @return List
+     */
+    public List<Summary> findAllLite() {
+        List<Summary> summaries = new ArrayList<>();
+
+        String sql = """
+                SELECT id, title, method, created_at
+                FROM summaries
+                """;
+        try (Statement stmt = connection.createStatement()) {
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                summaries.add(mapResultSetToSummary(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return summaries;
+    }
+
+    /**
+     * mencari data berdasarkan id.
      *
      * @param id int atau Integer
      * @return Optional

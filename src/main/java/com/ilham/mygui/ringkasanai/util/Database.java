@@ -8,7 +8,7 @@ public class Database {
 
     private static Connection connection;
 
-    private static final String URL = "jdbc:mysql://localhost:3306/uas_pbo";
+    private static final String URL = "jdbc:mariadb://localhost:3306/uas_pbo?useUnicode=true&characterEncoding=utf8mb4";
     private static final String USER = "uas_app";
     private static final String PASSWORD = "ilovejava123";
 

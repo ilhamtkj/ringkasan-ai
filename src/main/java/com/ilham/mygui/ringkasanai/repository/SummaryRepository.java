@@ -8,6 +8,7 @@ import java.util.Optional;
 public interface SummaryRepository {
     Summary save(Summary summary);
     List<Summary> findAll();
+    List<Summary> findAllLite();
     Optional<Summary> findById(Integer id);
 
     // nanti

@@ -3,7 +3,7 @@ package com.ilham.mygui.ringkasanai.service.formatter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Formatter {
+public class ResultFormatter {
 
     /**
      * memformat teks supaya sesuai.
@@ -16,7 +16,7 @@ public class Formatter {
      * @param text String
      * @return String
      */
-    public String format(String text) {
+    public static String format(String text) {
         if (text == null || text.isBlank()) return "";
 
         String normalized = normalizeWhitespace(text);
@@ -28,7 +28,7 @@ public class Formatter {
     }
 
     // menghapus tab/spasi berlebih dan newline acak
-    private String normalizeWhitespace(String input) {
+    private static String normalizeWhitespace(String input) {
         return input
                 .replaceAll("[ \\t\\x0B\\f\\r]+", " ") // tab dan semacamnya
                 .replaceAll(" +", " ") // spasi berlebih
@@ -36,12 +36,12 @@ public class Formatter {
     }
 
     // pisah teks berdasarkan newline
-    private String[] splitLines(String input) {
+    private static String[] splitLines(String input) {
         return input.split("\\R+");
     }
 
     // gabungkan baris jika baris tidak diakhiri tanda baca akhir
-    private List<String> mergeLines(String[] lines) {
+    private static List<String> mergeLines(String[] lines) {
         List<String> result = new ArrayList<>();
 
         for (String line : lines) {
@@ -65,12 +65,12 @@ public class Formatter {
     }
 
     // mengecek apakah akhir kalimat adalah tanda akhir
-    private boolean endsWithPunctuation(String text) {
+    private static boolean endsWithPunctuation(String text) {
         return text.endsWith(".") || text.endsWith("!") || text.endsWith("?");
     }
 
     // kapital di awal setiap baris
-    private List<String> capitalizeLines(List<String> lines) {
+    private static List<String> capitalizeLines(List<String> lines) {
         List<String> result = new ArrayList<>();
         for (String line : lines) {
             result.add(capitalizeFirstLetter(line));
@@ -79,7 +79,7 @@ public class Formatter {
     }
 
     // kapital huruf pertama
-    private String capitalizeFirstLetter(String sentence) {
+    private static String capitalizeFirstLetter(String sentence) {
         for (int i = 0; i < sentence.length(); i++) {
             if (Character.isLetter(sentence.charAt(i))) {
                 return sentence.substring(0, i)
