@@ -3,6 +3,7 @@
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="574.4" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ilham.mygui.ringkasanai.controller.FormController">
     <GridPane layoutX="54.0" layoutY="57.0" prefHeight="574.4" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -16,9 +17,9 @@
         </columnConstraints>
         <rowConstraints>
             <RowConstraints maxHeight="77.4" minHeight="-Infinity" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="140.99998819828033" minHeight="-Infinity" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="408.8" minHeight="-Infinity" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="408.99999237060547" minHeight="-Infinity" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="140.99998819828033" minHeight="-Infinity" prefHeight="76.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="300.0" minHeight="-Infinity" prefHeight="12.399999999999991" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="408.99999237060547" minHeight="-Infinity" prefHeight="56.400000000000006" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="271.40000000000003" minHeight="10.0" prefHeight="212.00000000000003" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="211.40000000000003" minHeight="10.0" prefHeight="76.5999694824219" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="129.4000305175781" minHeight="10.0" prefHeight="99.80003051757808" vgrow="SOMETIMES" />
@@ -28,19 +29,22 @@
                 <GridPane.margin>
                     <Insets bottom="10.0" left="10.0" top="10.0" />
                 </GridPane.margin>
+            <font>
+               <Font size="14.0" />
+            </font>
             </Label>
             <Label text="pilih dari file: " GridPane.rowIndex="1">
                 <GridPane.margin>
                     <Insets bottom="10.0" left="10.0" />
                 </GridPane.margin>
             </Label>
-            <Label layoutX="20.0" layoutY="48.0" prefHeight="18.0" prefWidth="170.0" text="Atau paste kalimat di bawah" GridPane.columnSpan="2" GridPane.rowIndex="2">
+            <Label layoutX="20.0" layoutY="48.0" prefHeight="18.0" prefWidth="170.0" text="Atau paste kalimat di bawah" GridPane.columnSpan="2" GridPane.rowIndex="3">
                 <GridPane.margin>
                     <Insets bottom="10.0" left="10.0" />
                 </GridPane.margin>
             </Label>
             <Button mnemonicParsing="false" onAction="#handleSelectFileAction" text="pilih file" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <ComboBox fx:id="summaryMethodComboBox" prefWidth="150.0" GridPane.columnIndex="4" GridPane.columnSpan="2">
+            <ComboBox fx:id="summaryMethodComboBox" prefWidth="200.0" GridPane.columnIndex="4" GridPane.columnSpan="2">
                 <GridPane.margin>
                     <Insets />
                 </GridPane.margin></ComboBox>
@@ -48,7 +52,7 @@
                 <GridPane.margin>
                     <Insets left="10.0" />
                 </GridPane.margin></Label>
-            <TextArea fx:id="sourceTextArea" prefHeight="200.0" prefWidth="200.0" wrapText="true" GridPane.columnSpan="3" GridPane.rowIndex="3" GridPane.rowSpan="4">
+            <TextArea fx:id="sourceTextArea" prefHeight="200.0" prefWidth="200.0" wrapText="true" GridPane.columnSpan="3" GridPane.rowIndex="4" GridPane.rowSpan="3">
                 <GridPane.margin>
                     <Insets bottom="10.0" left="10.0" right="10.0" />
                 </GridPane.margin>

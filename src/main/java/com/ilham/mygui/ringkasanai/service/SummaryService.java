@@ -90,7 +90,7 @@ public class SummaryService {
     /**
      * untuk mengambil data dari db lalu dipakai oleh table.
      *
-     * @return
+     * @return SummaryModel
      */
     public List<SummaryModel> getTableData() {
         SummaryRepository repository = new SummaryRepositoryImpl(Database.getConnection());
