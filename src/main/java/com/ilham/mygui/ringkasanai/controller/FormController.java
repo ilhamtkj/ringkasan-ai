@@ -62,11 +62,21 @@ public class FormController {
         String additionalOptions = additionalOptionsTextArea.getText();
 
         // jika metode ringkasan kosong
-        if (method == null || method.isBlank()) {
+        if (!service.isMethodValid(method)) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Peringatan");
             alert.setHeaderText(null);
             alert.setContentText("Metode ringkasan tidak boleh kosong");
+            alert.showAndWait();
+            return;
+        }
+
+        // jika method menggunakan rule-based
+        if (!service.isOptionsValid(method, additionalOptions)) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Peringatan");
+            alert.setHeaderText(null);
+            alert.setContentText("Opsi hanya tersedia \"Panjang\" dan \"Pendek\"");
             alert.showAndWait();
             return;
         }

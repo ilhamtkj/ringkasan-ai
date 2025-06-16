@@ -4,6 +4,8 @@ import com.ilham.mygui.ringkasanai.model.Summary;
 import com.ilham.mygui.ringkasanai.model.SummaryModel;
 import com.ilham.mygui.ringkasanai.repository.SummaryRepository;
 import com.ilham.mygui.ringkasanai.repository.SummaryRepositoryImpl;
+import com.ilham.mygui.ringkasanai.service.formatter.BinaryFormatter;
+import com.ilham.mygui.ringkasanai.service.formatter.PreFormatter;
 import com.ilham.mygui.ringkasanai.service.formatter.PromtFormatter;
 import com.ilham.mygui.ringkasanai.service.formatter.ResultFormatter;
 import com.ilham.mygui.ringkasanai.service.mapper.SummaryMapper;
@@ -36,10 +38,13 @@ public class SummaryService {
             default -> throw new IllegalArgumentException("Invalid method: " + method);
         };
 
-        String finalPromt = text;
-        if (summarizer instanceof ApiBasedSummarizer) {
-            finalPromt = PromtFormatter.format(text, options);
-        }
+        PreFormatter formatter = switch (summarizer) {
+            case RuleBasedSummarizer ignored -> new BinaryFormatter();
+            case ApiBasedSummarizer ignored -> new PromtFormatter();
+            default -> throw new IllegalArgumentException("Invalid summarizer");
+        };
+
+        String finalPromt = formatter.format(text, options);
 
         return ResultFormatter.format(summarizer.summarize(finalPromt));
     }
@@ -51,8 +56,8 @@ public class SummaryService {
      * oroginal teks
      *
      * @param originalText String
-     * @param summaryText String
-     * @param method String
+     * @param summaryText  String
+     * @param method       String
      */
     public void saveSummary(String originalText, String summaryText, String method) {
         // buat pojo
@@ -97,8 +102,38 @@ public class SummaryService {
         List<Summary> dataPOJO = repository.findAll();
 
         List<SummaryModel> dataModel = new ArrayList<>();
-        dataPOJO.forEach(summary -> {dataModel.add(SummaryMapper.toModel(summary));});
+        dataPOJO.forEach(summary -> dataModel.add(SummaryMapper.toModel(summary)));
 
         return dataModel;
+    }
+
+    /**
+     * untuk mengecek apakah mathod sudah diisi atau belum
+     * jika method diisi atau tidak null, maka akan dianggap
+     * sesuai dan mengembalikan true.
+     *
+     * @param method String metode ringkasan
+     * @return boolean true jika valid
+     */
+    public boolean isMethodValid(String method) {
+        return method != null && !method.isBlank();
+    }
+
+    /**
+     * mengecek apakah opsi tambahan sesuai atau tidak,
+     * API-Based tanpan opsi tambahan dianggap valid,
+     * sedangkan Rule-Based harus berisikan "panjang" atau "pendek"
+     * opsi ini mengabaikan huruf besar/kecil.
+     *
+     * @param method String metode ringkasan
+     * @param options String opsi tambahan
+     * @return boolean true jika API-Based atau Rule-Based dengan opsi panjang atau pendek
+     */
+    public boolean isOptionsValid(String method, String options) {
+        if (method.equalsIgnoreCase("rule-based") ) {
+            options = options.trim().toLowerCase();
+            return options.equals("panjang") || options.equals("pendek");
+        }
+        return true;
     }
 }

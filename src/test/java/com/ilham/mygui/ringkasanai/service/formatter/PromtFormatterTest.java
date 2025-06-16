@@ -3,6 +3,8 @@ package com.ilham.mygui.ringkasanai.service.formatter;
 import javafx.fxml.FXML;
 import org.junit.jupiter.api.Test;
 
+import java.util.Formatter;
+
 public class PromtFormatterTest {
 
     @Test
@@ -12,7 +14,8 @@ public class PromtFormatterTest {
                 
                 Film ini adalah hasil kerja sama Denmark-Britania Raya-Norwegia yang dipersembahkan oleh Final Cut for Real di Denmark, diproduseri Signe Byrge Sørensen, diko-sutradarai Anonim dan Christine Cynn, dan diproduseri eksekutif oleh Werner Herzog, Errol Morris, Joram ten Brink, dan André Singer. Ini adalah proyek Docwest dari Universitas Westminster.""";
         String options = "ringkas sesingkat singkatnya dan terjemahkan ke bahasa inggris";
-        String result = PromtFormatter.format(text, options);
+        PromtFormatter formatter = new PromtFormatter();
+        String result = formatter.format(text, options);
         System.out.println(result);
     }
 }

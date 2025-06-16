@@ -1,6 +1,6 @@
 package com.ilham.mygui.ringkasanai.service.formatter;
 
-public class PromtFormatter {
+public class PromtFormatter implements PreFormatter {
 
     /**
      * untuk membuat promt yang siap dikirim ke ai.
@@ -12,7 +12,7 @@ public class PromtFormatter {
      * @param options String opsi tambahan/perintah tambahan
      * @return String teks yang sudah siap dikirim ke ai
      */
-    public static String format(String text, String options) {
+    public String format(String text, String options) {
         return String.format("""
                 Buat ringkasan dari teks dibawah ini. %s.
                 Teks:
