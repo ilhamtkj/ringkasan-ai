@@ -5,7 +5,6 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-
 <AnchorPane prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ilham.mygui.ringkasanai.controller.HelpController">
    <children>
       <GridPane layoutX="186.0" layoutY="116.0" prefHeight="500.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -42,7 +41,7 @@
                         <Insets left="13.0" />
                      </VBox.margin>
                   </Text>
-                  <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Opsi tambahan hanya bisa dipakai jika metode ringkasan menggunakan API-Based.">
+                  <Text fill="RED" strokeType="OUTSIDE" strokeWidth="0.0" text="Opsi tambahan untuk API-based boleh dikosongkan, tapi Rule-based harus diisi &quot;panjang&quot; atau &quot;pendek&quot;.">
                      <VBox.margin>
                         <Insets left="13.0" />
                      </VBox.margin>
